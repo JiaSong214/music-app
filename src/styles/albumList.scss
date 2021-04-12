@@ -1,0 +1,54 @@
+.albumList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 60px 20px;
+
+  li {
+    position: relative;
+    cursor: pointer;
+
+    &:hover .albumList__img {
+      filter: brightness(0.5);
+    }
+
+    .albumList__img {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    &:hover .category_title {
+      text-decoration: underline;
+    }
+
+    .category_title {
+      font-size: 1rem;
+      position: absolute;
+      top: 70%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .albumList__title {
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .albumList__title--categories {
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 400;
+      text-align: center;
+      position: absolute;
+      top: 70%;
+    }
+
+    .albumList__artist {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: #b3b3b3;
+    }
+  }
+}

@@ -1,0 +1,60 @@
+@import "./global";
+
+.songTable {
+  width: 100%;
+
+  tr {
+    padding: 12px;
+    border-bottom: 1px solid #282828;
+    display: grid;
+    grid-template-columns: 25px 25px 1.5fr 1fr 1fr auto;
+    grid-gap: 30px;
+
+    th,
+    td {
+      display: block;
+    }
+
+    th {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #b3b3b3;
+      letter-spacing: 0.2rem;
+      text-transform: uppercase;
+      text-align: left;
+    }
+
+    td {
+      font-size: 0.9rem;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+
+      &.songTable__playBtn img {
+        opacity: 0;
+        width: 20px;
+        height: 20px;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      &.songTable__likeBtn img {
+        display: block;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  tbody tr:hover {
+    background: #282828;
+
+    .songTable__playBtn img {
+      opacity: 1;
+    }
+  }
+}

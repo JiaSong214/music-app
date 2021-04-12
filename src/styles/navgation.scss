@@ -1,0 +1,35 @@
+@import "./global.scss";
+
+nav {
+  width: 190px;
+  height: calc(100vh - 80px);
+  padding: 50px 20px !important;
+  // background: $background;
+  background: #121212;
+  // border-right: 3px solid $dark;
+  color: #b3b3b3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+
+  h1 {
+    margin-bottom: 5px;
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.2rem;
+  }
+
+  ul {
+    margin-bottom: 30px;
+  }
+
+  li {
+    padding: 5px 0;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+}

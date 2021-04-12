@@ -1,0 +1,48 @@
+@import "./global.scss";
+
+.browse {
+  .browse__titleBox {
+    margin-bottom: 30px;
+    background: #181818;
+    position: sticky;
+    top: 60px;
+    z-index: 10;
+  }
+
+  .tapButtons {
+    width: 380px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 117px;
+    z-index: 11;
+
+    div {
+      padding-bottom: 10px;
+      font-size: 0.85rem;
+      color: #b3b3b3;
+      font-weight: 400;
+      letter-spacing: 0.1rem;
+      text-transform: uppercase;
+      cursor: pointer;
+
+      &.active {
+        color: white;
+        font-weight: 500;
+        position: relative;
+
+        &::after {
+          display: block;
+          content: "";
+          width: 38px;
+          height: 2px;
+          background: #58b660;
+          position: absolute;
+          top: calc(100% - 2px);
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+}

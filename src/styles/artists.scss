@@ -1,0 +1,38 @@
+.artists {
+  .artists__img {
+    all: unset;
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    padding-top: 50px;
+  }
+
+  p {
+    width: 500px;
+    margin: 20px auto;
+    font-size: 1rem;
+    color: #a3a3a3;
+    text-align: center;
+  }
+
+  .artists__btn {
+    width: 180px;
+    padding: 10px 0;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    transition: 0.1s;
+
+    &:hover {
+      transform: scale(1.05);
+      transition: 0.1s;
+    }
+  }
+}
