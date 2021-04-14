@@ -64,10 +64,7 @@ export default function reducer (state = initialState, action) {
     case SUCCEED_PLAYLISTS_FETCH:
       return {
         ...state,
-        data: {
-          ...state.data,
-          playlist: action.data
-        },
+        data: action.data,
         pending: false
       };
     case FAIL_PLAYLISTS_FETCH:
@@ -76,33 +73,30 @@ export default function reducer (state = initialState, action) {
         pending: false,
         error: action.error
       };
-    case PENDING_PLAYLIST_TRACKS_FETCH:
-      return {
-        ...state,
-        pending: true
-      };
-    case SUCCEED_PLAYLIST_TRACKS_FETCH:
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          tracks: action.data
-        },
-        pending: false
-      };
-    case FAIL_PLAYLIST_TRACKS_FETCH:
-      return {
-        ...state,
-        pending: false,
-        error: action.error
-      };
+    // case PENDING_PLAYLIST_TRACKS_FETCH:
+    //   return {
+    //     ...state,
+    //     pending: true
+    //   };
+    // case SUCCEED_PLAYLIST_TRACKS_FETCH:
+    //   return {
+    //     ...state,
+    //     data: {
+    //       ...state.data,
+    //       tracks: action.data
+    //     },
+    //     pending: false
+    //   };
+    // case FAIL_PLAYLIST_TRACKS_FETCH:
+    //   return {
+    //     ...state,
+    //     pending: false,
+    //     error: action.error
+    //   };
     case SET_CURRENT_PLAYLIST:
       return {
         ...state,
-        data: {
-          ...state.data,
-          currentPlaylist : action.data
-        },
+        current_playlist: action.data,
       };
     default:
       return state;

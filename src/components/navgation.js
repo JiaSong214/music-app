@@ -41,6 +41,7 @@ const Navigation = () => {
     }
   }
 
+
   const handleClickPlaylist = (playlist) => {
     //update view type
     dispatch(updateViewType('playlist'));
@@ -65,7 +66,7 @@ const Navigation = () => {
       </ul>
       <h1>PLAYLISTS</h1>
       <ul>
-        {playlists.playlist ? playlists.playlist.items.map(item => (
+        {playlists.items ? playlists.items.map(item => (
           <li key={item.name} onClick={() => handleClickPlaylist(item)} >{item.name}</li>
         )) : null}
       </ul>

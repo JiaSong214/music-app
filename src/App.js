@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setToken } from './store/modules/token';
 import { fetchAccessToken } from './api';
@@ -7,6 +7,30 @@ import Navigation from './components/navgation';
 import PlayBar from './components/playBar';
 import Header from './components/header';
 import Main from './components/main';
+
+//custom hook for audio
+const useAudio = (url) => {
+  const [ audio ] = useState(new Audio());
+  const [ playingState, setPlayingState ] = useState(false);
+
+  const setAudioPlaying = (playing) => {
+    playing ? setPlayingState(true) : setPlayingState(false);
+  }
+
+  useEffect(() => {
+    audio.src = url
+  })
+
+  useEffect(() => {
+    playingState ? audio.play() : audio.pause();
+    
+    return () => {
+      audio.pause();
+    }
+  }, [playingState, url]);
+
+  return [ playingState, setAudioPlaying ]
+}
 
 
 function App() {
@@ -59,35 +83,15 @@ function App() {
 
 
 
-  // const audioPlay = useSelector(state => state.songs.play, shallowEqual);
-  // const currentSong = useSelector(state => state.songs.current_song, shallowEqual);
+  const audioPlay = useSelector(state => state.songs.play, shallowEqual);
+  const currentSong = useSelector(state => state.songs.current_song, shallowEqual);
+  const [ playingState, setAudioPlaying ] = useAudio(currentSong.preview_url);
 
 
-  // //문제 발생 이유: 이벤트가 있을떄마다 새로운 오디오 객체를 만들어냄
-  // const [ audio, setAudio ] = useState(new Audio());
+  useEffect(() => {
+    setAudioPlaying(audioPlay);
+  }, [audioPlay, currentSong])
 
-  // const playAudio = (current) => {
-  //   console.log(`start ${current.name}`)
-
-
-  //   if(audio === undefined) {
-  //    setAudio(new Audio(current.preview_url));
-  //     console.log(audio)
-
-  //     audio.play();
-  //   }else{
-  //     audio.pause();
-  //     setAudio(new Audio(current.preview_url));
-  //     console.log(audio)
-
-  //     audio.play();
-  //   }
-  // }
-
-  //   useEffect(() => {
-  //     console.log(currentSong.name)
-  //     playAudio(currentSong);
-  //   }, [audioPlay]) 
 
 
   if(!accessToken) return null;

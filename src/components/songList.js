@@ -2,8 +2,10 @@ import '../styles/songList.scss';
 import likeEmptyIcon from '../assets/like-empty.png';
 import likeFullIcon from '../assets/like-full.png';
 import playBtn from '../assets/play-btn.png';
-import { pauseSong, playSong } from '../store/modules/songs';
+import pauseBtn from '../assets/pause-btn.png';
+import { pauseSong, playSong, stopSong } from '../store/modules/songs';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { useEffect } from 'react';
 
 
 const SongList = (data) => {
@@ -16,27 +18,35 @@ const SongList = (data) => {
     return date.slice(0, 5)
   }
 
-
-
   const clickPlaySong = (song) => {
-    //if you click same song's play button again,
-    if(song.track.name === currentSong.name){
-      // check if that song is playing now, and pause the song
-      if(audioPlay) {
-        dispatch(pauseSong());
-        // console.log('same song pause')
-      }else{
-        dispatch(playSong(song.track))
-        // console.log('same song play')
-      }
+    const dataFormat = dataClean(song)
+    //if there is no music, return
+    if(dataFormat.preview_url === null) return;
+
+    //if song is playing and you click same song's play button again, pause the song
+    if(audioPlay && dataFormat.name === currentSong.name){
+      dispatch(pauseSong(dataFormat));
     }else{
       //if you click diffrent song's play button,
-      dispatch(playSong(song.track))
-      // console.log('different song play')
+      dispatch(stopSong());
+      dispatch(playSong(dataFormat));
     }
   }
 
-  
+  //함수 이름좀 바꾸기;;
+  const dataClean = (item) => {
+    let dataFormat;
+    if(item.preview_url !== undefined){
+      dataFormat = item;
+    }else if(item.track.preview_url !== undefined){
+      dataFormat = item.track;
+    }else {
+      return;
+    }
+    return dataFormat;
+  }
+
+
   if(!data || !data.data || !data.data.items) return null;
   return (
     <table className='songTable'>
@@ -51,20 +61,27 @@ const SongList = (data) => {
         </tr>
       </thead>
       <tbody>
-        {data.data.items.map(item => (
-          <tr key={item.track ? item.track.name+item.track.duration_ms : item.name+item.duration_ms}>
+        {data.data.items.map(item => {
+          const dataFormat = dataClean(item);
+          return <tr 
+            key={dataFormat.name+dataFormat.duration_ms} 
+            className={audioPlay && currentSong.name !== undefined && currentSong.name === dataFormat.name ? 'songTable__item active' : 'songTable__item'}
+            >
             <td className='songTable__playBtn' onClick={() => clickPlaySong(item)}>
-              <img src={playBtn} alt='song play button'/>
+              <img 
+                src={audioPlay && currentSong.name !== undefined && currentSong.name === dataFormat.name ? pauseBtn : playBtn} 
+                alt='song play button'
+              />
             </td>
             <td className='songTable__likeBtn'>
                <img src={data.type === 'likedSongs' ? likeFullIcon :likeEmptyIcon} alt='song like button' />
             </td>
-            <td>{item.track ? item.track.name : item.name}</td>
-            <td>{item.track ? item.track.artists[0].name : item.artists[0].name}</td>
-            <td>{item.track ? item.track.album.name : item.album ? item.album.name : data.album_name}</td>
-            <td>{convertTime(item.track? item.track.duration_ms : item.duration_ms)}</td>
+            <td className='songTable__songName'>{dataFormat.name}</td>
+            <td>{dataFormat.artists[0].name}</td>
+            <td>{dataFormat.album ? dataFormat.album.name : data.album_name}</td>
+            <td>{convertTime(dataFormat.duration_ms)}</td>
           </tr>
-        ))}
+        })}
       </tbody>
     </table>
   )

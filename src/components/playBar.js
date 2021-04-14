@@ -1,63 +1,107 @@
-import '../styles/playBar.scss';
+
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { playSong, pauseSong, stopSong } from '../store/modules/songs';
+
 import playBtn from '../assets/play-btn.png';
+import pauseBtn from '../assets/pause-btn.png';
 import nextSongBtn from '../assets/next-song-btn.png';
 import lastSongBtn from '../assets/last-song-btn.png';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { useEffect, useRef } from 'react';
-import { fetchCurrentPlaying } from '../api';
-import { playSong, pauseSong } from '../store/modules/songs';
+
+import '../styles/playBar.scss';
+
 
 
 function PlayBar() {
   const dispatch = useDispatch();
-  const accessToken = useSelector(state => state.token.token, shallowEqual);
-  const audioPlay = useSelector(state => state.songs.play);
-  const currentSong = useSelector(state => state.songs.current_song);
+  const audioPlay = useSelector(state => state.songs.play, shallowEqual);
+  const audioStop = useSelector(state => state.songs.stop, shallowEqual);
+  const currentSong = useSelector(state => state.songs.current_song, shallowEqual);
+  const currentSongList = useSelector(state => state.songs.data, shallowEqual);
+  const [ playingTime, setPlayingTime ] = useState(0)
 
 
   const clickPlaySong = () => {
-    if(audioPlay === false){
-      dispatch(playSong());
-    }else if(audioPlay === true){
-      dispatch(pauseSong());
-    }
+    if(!currentSong.name) return;
+
+    audioPlay ? dispatch(pauseSong(currentSong)) : dispatch(playSong(currentSong));
   }
 
 
-  useEffect(() => {
-    //fetch default data
-    dispatch(fetchCurrentPlaying(accessToken));
-  }, [accessToken, dispatch])
+  const clickNextSong = () => {
+    if(!currentSong.name) return;
 
+    let dataFormat = currentSongList.tracks ? currentSongList.tracks : currentSongList;
+    let indexNum;
 
-  const inputRef = useRef();
-
-  useEffect(() => {
-    //if play state is true,
-    if(audioPlay){
-      //check if current song is set
-      if (currentSong) {
-        //and set the song in audio, play
-        inputRef.current.src = currentSong.preview_url;
-        inputRef.current.play();
-
-        console.log(`start ${currentSong.name}`)
+    dataFormat.items.forEach((item, index) => {
+      if(item.name !== undefined){
+        if(item.name === currentSong.name) indexNum = index;
+      }else if(item.track !== undefined){
+        if(item.track.name === currentSong.name) indexNum = index;
       }
-    }else{
-      //if play state is false, stop the song
-      inputRef.current.pause();
+    });
 
-      console.log(`pause ${currentSong.name}`)
+    const nextSong = dataFormat.items[indexNum + 1];
+    console.log(nextSong)
+    dispatch(stopSong());
+    dispatch(playSong(nextSong.track? nextSong.track : nextSong));
+  }
 
+
+  const clickReverseSong = () => {
+    if(!currentSong.name) return;
+
+    let dataFormat = currentSongList.tracks ? currentSongList.tracks : currentSongList;
+    let indexNum;
+
+    dataFormat.items.forEach((item, index) => {
+      if(item.name !== undefined){
+        if(item.name === currentSong.name) indexNum = index;
+      }else if(item.track !== undefined){
+        if(item.track.name === currentSong.name) indexNum = index;
+      }
+    });
+
+    const reverseSong = dataFormat.items[indexNum - 1];
+    dispatch(stopSong());
+    dispatch(playSong(reverseSong.track));
+  }
+
+
+  //song processing bar
+  useEffect(() => {
+    if(audioStop) {
+      setPlayingTime(0);
+      console.log(audioStop + 'audio Stop')
+      return;
     }
-  }, [audioPlay, currentSong])
 
+    if(!audioStop && !audioPlay) {
+      console.log(audioPlay + 'audio pause')
+      return;
+    }
+
+      const interval = setInterval(() => {
+        setPlayingTime(playingTime + 1)
+      }, 1000)
+
+      setTimeout(() => {
+        dispatch(pauseSong(currentSong));
+        setPlayingTime(0)
+      }, 30000);
+    
+
+    console.log(audioPlay, playingTime)
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [audioPlay, audioStop, playingTime]);
 
 
   return (
     <aside className="playBar">
-      <audio ref={inputRef}/>
-
       <div className='currentPlaySong'>
         {currentSong.album ?
           <img src={currentSong.album.images[0].url} alt='current playing album cover' /> : ''
@@ -68,20 +112,24 @@ function PlayBar() {
         </div>
       </div>
       <div className='songControl'>
-        <div className='reverseSong'>
+        <div className='reverseSong' onClick={() => clickReverseSong()}>
           <img src={lastSongBtn} alt='reverse button' />
         </div>
         <div className='playSong' onClick={() => clickPlaySong()}>
-          <img src={playBtn} alt='play button' />
+          <img src={audioPlay ? pauseBtn : playBtn} alt='play button' />
         </div>
-        <div className='nextSong'>
+        <div className='nextSong' onClick={() => clickNextSong()}>
           <img src={nextSongBtn} alt='next button' />
         </div>
       </div>
       <div className='songProgress'>
-        <div className='currentProgress'>0:00</div>
+        <div className='currentProgress'>
+          0:{playingTime < 10 ? '0'+playingTime : playingTime}
+        </div>
         <div className='progressBar'></div>
-        <div className='expiredProgress'>0:30</div>
+        <div className='expiredProgress'>
+          0:{ -(playingTime - 30) < 10 ? '0'+- (playingTime - 30) : -(playingTime - 30) }
+        </div>
       </div>
       <div className='volumControl'>
 

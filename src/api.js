@@ -39,7 +39,6 @@ export const fetchAccessToken = async (code) => {
     const data = await response.json();
     const access_token = data.access_token;
 
-    console.log(data)
     return access_token;
 
   }catch{
@@ -99,7 +98,7 @@ export const fetchAlbums = (access_token) => (dispatch) => {
 
 
 export const fetchAlbumTracks = (access_token, href) => (dispatch) => {
-  dispatch(pendingAlbumTracksFetch());
+  dispatch(pendingSongsFetch());
 
   return fetch(href, {
     headers: {
@@ -107,8 +106,8 @@ export const fetchAlbumTracks = (access_token, href) => (dispatch) => {
     }
   })
   .then(res => res.json())
-  .then(data => dispatch(succeedAlbumTracksFetch(data)))
-  .catch(err => dispatch(failAlbumTracksFetch(err)))
+  .then(data => dispatch(succeedSongsFetch(data)))
+  .catch(err => dispatch(failSongsFetch(err)))
 }
 
 
@@ -238,7 +237,7 @@ export const fetchPlaylists = (access_token) => (dispatch) => {
 
 
 export const fetchPlaylistTracks = (access_token, playlist_id) => (dispatch) => {
-  dispatch(pendingPlaylistTracksFetch());
+  dispatch(pendingSongsFetch());
 
   return fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, {
     headers: {
@@ -246,20 +245,6 @@ export const fetchPlaylistTracks = (access_token, playlist_id) => (dispatch) => 
     }
   })
   .then(res => res.json())
-  .then(data => dispatch(succeedPlaylistTracksFetch(data)))
-  .catch(err => dispatch(failPlaylistTracksFetch(err)))
-}
-
-
-export const fetchCurrentPlaying = (access_token) => (dispatch) => {
-  // dispatch(pendingPlaylistTracksFetch());
-
-  return fetch(`https://api.spotify.com/v1/me/player/currently-playing?market=ES&additional_types=episode`, {
-    headers: {
-      'Authorization': 'Bearer ' + access_token
-    }
-  })
-  .then(res => res.json())
-  .then(data => console.log(data))
-  .catch(err => console.log(err))
+  .then(data => dispatch(succeedSongsFetch(data)))
+  .catch(err => dispatch(failSongsFetch(err)))
 }

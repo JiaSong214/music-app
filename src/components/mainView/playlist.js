@@ -3,13 +3,14 @@ import AlbumInfo from '../albumInfo';
 import SongList from '../songList';
 
 const Playlist = () => {
-  const playlist = useSelector(state => state.playlists.data, shallowEqual);
+  const currentPlaylist = useSelector(state => state.playlists.current_playlist, shallowEqual);
+  const songs = useSelector(state => state.songs.data, shallowEqual);
 
-  if(!playlist) return null;
+  if(!currentPlaylist) return null;
   return (
     <div className='view playlist'>
-      <AlbumInfo data={playlist.currentPlaylist} />
-      <SongList data={playlist.tracks} />
+      <AlbumInfo data={currentPlaylist} />
+      <SongList data={songs} />
     </div>
   )
 }

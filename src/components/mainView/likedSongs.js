@@ -1,4 +1,5 @@
 import { useSelector, shallowEqual } from 'react-redux';
+import PlayButton from '../playButton';
 import SongList from "../songList";
 
 const LikedSongs = () => {
@@ -8,7 +9,7 @@ const LikedSongs = () => {
     <div className='view'>
       <div className='view__titleBox'>
         <h1 className='view__title'>Liked Songs</h1>
-        <div className='playBtn'>Play</div>
+        <PlayButton />
       </div>
       <SongList data={data} type='likedSongs'/>
     </div>

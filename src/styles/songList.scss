@@ -10,6 +10,19 @@
     grid-template-columns: 25px 25px 1.5fr 1fr 1fr auto;
     grid-gap: 30px;
 
+    &.active {
+      background: #282828;
+
+      .songTable__songName {
+        color: #58b660;
+        transition: 0.3s;
+      }
+
+      .songTable__playBtn img {
+        opacity: 1;
+      }
+    }
+
     th,
     td {
       display: block;

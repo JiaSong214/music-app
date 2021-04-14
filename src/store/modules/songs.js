@@ -9,6 +9,7 @@ const FAIL_SEARCH_SONGS_FETCH = 'songs/FAIL_SEARCH_SONGS_FETCH';
 
 const PLAY_SONG = 'songs/PLAY_SONG';
 const PAUSE_SONG = 'songs/PAUSE_SONG';
+const STOP_SONG = 'songs/STOP_SONG';
 
 
 //make action generate function
@@ -47,9 +48,17 @@ export const playSong = (song) => ({
   current_song : song
 });
 
-export const pauseSong = () => ({
+export const pauseSong = (song) => ({
   type: PAUSE_SONG,
-  play: false
+  play: false,
+  stop: false,
+  current_song : song
+})
+
+export const stopSong = () => ({
+  type: STOP_SONG,
+  play: false,
+  stop: true,
 })
 
 //initial state of module
@@ -110,7 +119,15 @@ export default function reducer (state = initialState, action) {
     case PAUSE_SONG:
       return {
         ...state,
-        play: action.play
+        play: action.play,
+        stop: action.stop,
+        current_song : action.current_song
+      };
+    case STOP_SONG:
+      return {
+        ...state,
+        play: action.play,
+        stop: action.stop
       };
     default:
       return state;
