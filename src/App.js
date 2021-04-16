@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setToken } from './store/modules/token';
 import { fetchAccessToken } from './api';
@@ -7,11 +7,13 @@ import Navigation from './components/navgation';
 import PlayBar from './components/playBar';
 import Header from './components/header';
 import Main from './components/main';
+import Modal from './components/modal';
 
 
 function App() {
   const dispatch = useDispatch();
   const accessToken = useSelector(state => state.token.token, shallowEqual);
+  const [ modal, setModal ] = useState(false)
 
 
   const getParamsValue = () => {
@@ -59,6 +61,13 @@ function App() {
   },[accessToken, dispatch]);
 
 
+  //modal active
+  useEffect(() => {
+    setTimeout(() => {
+      setModal(true);
+    }, 2000)
+  },[])
+  
 
   if(!accessToken) return null;
   return (
@@ -67,6 +76,7 @@ function App() {
       <Header/>
       <PlayBar/>
       <Main/>
+      <Modal active={modal} />
     </>
   );
 }

@@ -65,11 +65,11 @@ const SongList = (data) => {
           const dataFormat = dataClean(item);
           return <tr 
             key={dataFormat.name+dataFormat.duration_ms} 
-            className={audioPlay && currentSong.name !== undefined && currentSong.name === dataFormat.name ? 'songTable__item active' : 'songTable__item'}
+            className={audioPlay && currentSong.name !== undefined && currentSong.name === dataFormat.name && currentSong.duration_ms === dataFormat.duration_ms ? 'songTable__item active' : 'songTable__item'}
             >
             <td className='songTable__playBtn' onClick={() => clickPlaySong(item)}>
               <img 
-                src={audioPlay && currentSong.name !== undefined && currentSong.name === dataFormat.name ? pauseBtn : playBtn} 
+                src={audioPlay && currentSong.name !== undefined && currentSong.name === dataFormat.name && currentSong.duration_ms === dataFormat.duration_ms ? pauseBtn : playBtn} 
                 alt='song play button'
               />
             </td>

@@ -1,8 +1,8 @@
 @import "./global.scss";
 
 main {
-  margin: calc(50px + 50px) 190px calc(100px + 50px);
-  padding: 0 50px;
+  margin: 0 190px calc(100px + 50px);
+  padding: calc(50px + 50px) 50px 0;
 
   .view__titleBox {
     width: 100%;
