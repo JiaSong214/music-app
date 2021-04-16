@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { setToken } from './store/modules/token';
 import { fetchAccessToken } from './api';
@@ -7,30 +7,6 @@ import Navigation from './components/navgation';
 import PlayBar from './components/playBar';
 import Header from './components/header';
 import Main from './components/main';
-
-//custom hook for audio
-const useAudio = (url) => {
-  const [ audio ] = useState(new Audio());
-  const [ playingState, setPlayingState ] = useState(false);
-
-  const setAudioPlaying = (playing) => {
-    playing ? setPlayingState(true) : setPlayingState(false);
-  }
-
-  useEffect(() => {
-    audio.src = url
-  })
-
-  useEffect(() => {
-    playingState ? audio.play() : audio.pause();
-    
-    return () => {
-      audio.pause();
-    }
-  }, [playingState, url]);
-
-  return [ playingState, setAudioPlaying ]
-}
 
 
 function App() {
@@ -54,6 +30,7 @@ function App() {
   }
 
 
+  //authorization
   useEffect(() => {
     //first, check if there is token or not.
     const checkAccessToken = () => {
@@ -80,17 +57,6 @@ function App() {
 
     checkAccessToken();
   },[accessToken, dispatch]);
-
-
-
-  const audioPlay = useSelector(state => state.songs.play, shallowEqual);
-  const currentSong = useSelector(state => state.songs.current_song, shallowEqual);
-  const [ playingState, setAudioPlaying ] = useAudio(currentSong.preview_url);
-
-
-  useEffect(() => {
-    setAudioPlaying(audioPlay);
-  }, [audioPlay, currentSong])
 
 
 

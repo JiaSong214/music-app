@@ -1,30 +1,55 @@
 
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { playSong, pauseSong, stopSong } from '../store/modules/songs';
 
 import playBtn from '../assets/play-btn.png';
 import pauseBtn from '../assets/pause-btn.png';
 import nextSongBtn from '../assets/next-song-btn.png';
 import lastSongBtn from '../assets/last-song-btn.png';
+import volumeIcon from '../assets/volume.png';
 
 import '../styles/playBar.scss';
 
 
-
 function PlayBar() {
   const dispatch = useDispatch();
-  const audioPlay = useSelector(state => state.songs.play, shallowEqual);
-  const audioStop = useSelector(state => state.songs.stop, shallowEqual);
+  const audioRef = useRef(null);
+  const audioState = useSelector(state => state.songs, shallowEqual);
   const currentSong = useSelector(state => state.songs.current_song, shallowEqual);
   const currentSongList = useSelector(state => state.songs.data, shallowEqual);
-  const [ playingTime, setPlayingTime ] = useState(0)
+  const [ playingTime, setPlayingTime ] = useState(0);
+
+
+
+  //audio control
+  useEffect(() => {
+    //stop
+    if(audioState.stop){
+      if(audioRef.current === null || audioRef.current.src === undefined) return;
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      return;
+    }
+
+    //pause
+    if(!audioState.play){
+      if(audioRef.current === null || audioRef.current.src === undefined) return;
+      audioRef.current.pause();
+    }
+
+    //play
+    if(audioState.play){
+      audioRef.current.play();
+    }
+  
+  }, [audioState]);
 
 
   const clickPlaySong = () => {
     if(!currentSong.name) return;
 
-    audioPlay ? dispatch(pauseSong(currentSong)) : dispatch(playSong(currentSong));
+    audioState.play ? dispatch(pauseSong(currentSong)) : dispatch(playSong(currentSong));
   }
 
 
@@ -69,35 +94,64 @@ function PlayBar() {
   }
 
 
-  //song processing bar
-  useEffect(() => {
-    if(audioStop) {
+  const changeVolume = (e) => {
+    audioRef.current.volume = e.target.value;
+  }
+
+  //useEffect가 일어날때마다 중복실행되는 문제점
+  const countTime = () => {
+    console.log(`count time: ${playingTime}`);
+
+    let intervalId;
+
+    if(playingTime >= 30) {
+      clearInterval(intervalId);
       setPlayingTime(0);
-      console.log(audioStop + 'audio Stop')
-      return;
+      stopSong();
+
+    }else{
+      intervalId = setInterval(() => {
+        setPlayingTime(playingTime + 1);
+      }, 1000);
     }
+  }
 
-    if(!audioStop && !audioPlay) {
-      console.log(audioPlay + 'audio pause')
-      return;
-    }
+  // song processing bar
+  useEffect(() => {
+    console.log(`play: ${audioState.play}, stop: ${audioState.stop}`)
+    console.log(`count time: ${playingTime}`);
+    let intervalId;
 
-      const interval = setInterval(() => {
-        setPlayingTime(playingTime + 1)
-      }, 1000)
+    let sec = 0;
 
-      setTimeout(() => {
-        dispatch(pauseSong(currentSong));
-        setPlayingTime(0)
-      }, 30000);
+    if(audioState.stop) {
+      setPlayingTime(0);
+      sec = 0;
+
+    }else{
+      if(audioState.play){
+
+
+        if(sec >= 30) {
+          clearInterval(intervalId);
+          setPlayingTime(0);
+          stopSong();
     
+        }else{
+          intervalId = setInterval(() => {
+            setPlayingTime(playingTime + 1);
+            sec = sec + 1;
+            console.log(sec)
+  
+          }, 1000);
+        }
+      }
+    }
 
-    console.log(audioPlay, playingTime)
+    return () => clearInterval(intervalId);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [audioPlay, audioStop, playingTime]);
+  }, [audioState.stop, audioState.play])
+  
 
 
   return (
@@ -111,12 +165,13 @@ function PlayBar() {
           <p className='currentPlaySong__artist'>{currentSong.artists ? currentSong.artists[0].name : ''}</p>
         </div>
       </div>
+      <audio ref={audioRef} src={currentSong.preview_url}></audio>
       <div className='songControl'>
         <div className='reverseSong' onClick={() => clickReverseSong()}>
           <img src={lastSongBtn} alt='reverse button' />
         </div>
         <div className='playSong' onClick={() => clickPlaySong()}>
-          <img src={audioPlay ? pauseBtn : playBtn} alt='play button' />
+          <img src={audioState.play ? pauseBtn : playBtn} alt='play button' />
         </div>
         <div className='nextSong' onClick={() => clickNextSong()}>
           <img src={nextSongBtn} alt='next button' />
@@ -131,8 +186,9 @@ function PlayBar() {
           0:{ -(playingTime - 30) < 10 ? '0'+- (playingTime - 30) : -(playingTime - 30) }
         </div>
       </div>
-      <div className='volumControl'>
-
+      <div className='volumeControl'>
+        <img src={volumeIcon} alt='volume control' />
+        <input type='range' max='1' min='0' step='0.01' onChange={(e) => changeVolume(e)} />
       </div>
     </aside>
   );

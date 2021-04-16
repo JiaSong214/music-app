@@ -65,7 +65,7 @@
     margin-bottom: 10px;
 
     > div {
-      margin: 0 14px;
+      margin: 0 10px;
       cursor: pointer;
 
       &.playSong {
@@ -95,10 +95,46 @@
     }
 
     .progressBar {
-      width: 360px;
+      width: 420px;
       height: 3px;
       border-radius: 10px;
       background: #404040;
+    }
+  }
+
+  .volumeControl {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+
+    img {
+      display: block;
+      width: 15px;
+      margin-right: 10px;
+    }
+
+    input {
+      -webkit-appearance: none;
+      width: 130px;
+      height: 5px;
+      border-radius: 5px;
+      background: #58b660;
+
+      &:focus {
+        outline: none;
+      }
+
+      &::-webkit-slider-thumb {
+        appearance: none;
+        width: 12px;
+        height: 12px;
+        background: white;
+        border-radius: 50%;
+        cursor: pointer;
+      }
     }
   }
 }

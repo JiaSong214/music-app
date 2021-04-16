@@ -45,6 +45,7 @@ export const failSearchSongsFetch = (error) => ({
 export const playSong = (song) => ({
   type: PLAY_SONG,
   play: true,
+  stop: false,
   current_song : song
 });
 
@@ -68,6 +69,7 @@ const initialState = {
   search_term: '',
   current_song: {},
   play: false,
+  stop: false,
   error: null
 }
 
@@ -114,6 +116,7 @@ export default function reducer (state = initialState, action) {
       return {
         ...state,
         play: action.play,
+        stop: action.stop,
         current_song : action.current_song
       };
     case PAUSE_SONG:
