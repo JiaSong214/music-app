@@ -3,10 +3,6 @@ const PENDING_PLAYLISTS_FETCH = 'playlists/PENDING_PLAYLISTS_FETCH';
 const SUCCEED_PLAYLISTS_FETCH = 'playlists/SUCCEED_PLAYLISTS_FETCH';
 const FAIL_PLAYLISTS_FETCH = 'playlists/FAIL_PLAYLISTS_FETCH';
 
-const PENDING_PLAYLIST_TRACKS_FETCH = 'playlists/PENDING_PLAYLIST_TRACKS_FETCH';
-const SUCCEED_PLAYLIST_TRACKS_FETCH = 'playlists/SUCCEED_PLAYLIST_TRACKS_FETCH';
-const FAIL_PLAYLIST_TRACKS_FETCH = 'playlists/FAIL_PLAYLIST_TRACKS_FETCH';
-
 const SET_CURRENT_PLAYLIST = 'playlists/SET_CURRENT_PLAYLIST';
 
 //make action generate function
@@ -21,21 +17,6 @@ export const succeedPlaylistsFetch = (playlists) => ({
 
 export const failPlaylistsFetch = (err) => ({
   type: FAIL_PLAYLISTS_FETCH,
-  error: err
-});
-
-
-export const pendingPlaylistTracksFetch = () => ({
-  type: PENDING_PLAYLIST_TRACKS_FETCH
-});
-
-export const succeedPlaylistTracksFetch = (track) => ({
-  type: SUCCEED_PLAYLIST_TRACKS_FETCH,
-  data: track
-});
-
-export const failPlaylistTracksFetch = (err) => ({
-  type: FAIL_PLAYLIST_TRACKS_FETCH,
   error: err
 });
 
@@ -73,26 +54,6 @@ export default function reducer (state = initialState, action) {
         pending: false,
         error: action.error
       };
-    // case PENDING_PLAYLIST_TRACKS_FETCH:
-    //   return {
-    //     ...state,
-    //     pending: true
-    //   };
-    // case SUCCEED_PLAYLIST_TRACKS_FETCH:
-    //   return {
-    //     ...state,
-    //     data: {
-    //       ...state.data,
-    //       tracks: action.data
-    //     },
-    //     pending: false
-    //   };
-    // case FAIL_PLAYLIST_TRACKS_FETCH:
-    //   return {
-    //     ...state,
-    //     pending: false,
-    //     error: action.error
-    //   };
     case SET_CURRENT_PLAYLIST:
       return {
         ...state,

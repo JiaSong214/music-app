@@ -1,13 +1,11 @@
 import { pendingUserFetch, succeedUserFetch, failUserFetch } from './store/modules/user';
 
-import { pendingAlbumsFetch, succeedAlbumsFetch, failAlbumsFetch,
-  pendingAlbumTracksFetch, succeedAlbumTracksFetch, failAlbumTracksFetch } from './store/modules/albums';
+import { pendingAlbumsFetch, succeedAlbumsFetch, failAlbumsFetch } from './store/modules/albums';
 
 import { pendingSongsFetch, succeedSongsFetch, failSongsFetch,
   pendingSearchSongsFetch, succeedSearchSongsFetch, failSearchSongsFetch } from './store/modules/songs'
 
-import { pendingPlaylistsFetch, succeedPlaylistsFetch, failPlaylistsFetch,
-  pendingPlaylistTracksFetch, succeedPlaylistTracksFetch, failPlaylistTracksFetch } from './store/modules/playlists'
+import { pendingPlaylistsFetch, succeedPlaylistsFetch, failPlaylistsFetch } from './store/modules/playlists'
 
 import { pendingNewReleasesFetch, succeedNewReleasesFetch, failNewReleasesFetch,
   pendingCategoriesFetch, succeedCategoriesFetch, failCategoriesFetch,
@@ -205,7 +203,6 @@ export const fetchSearchResults = (access_token, search_term) => (dispatch) => {
   .then(res => res.json())
   .then(data => {
     //remove duplication
-    console.log(data.tracks.items)
     const uniqueArray = data.tracks.items.filter((item, index, self) => {
       return index === self.findIndex(t => {
         return t.name === item.name && t.artists[0].name === item.artists[0].name

@@ -9,7 +9,6 @@ const FAIL_SEARCH_SONGS_FETCH = 'songs/FAIL_SEARCH_SONGS_FETCH';
 
 const PLAY_SONG = 'songs/PLAY_SONG';
 const PAUSE_SONG = 'songs/PAUSE_SONG';
-const STOP_SONG = 'songs/STOP_SONG';
 
 
 //make action generate function
@@ -45,22 +44,16 @@ export const failSearchSongsFetch = (error) => ({
 export const playSong = (song) => ({
   type: PLAY_SONG,
   play: true,
-  stop: false,
   current_song : song
 });
 
 export const pauseSong = (song) => ({
   type: PAUSE_SONG,
   play: false,
-  stop: false,
   current_song : song
 })
 
-export const stopSong = () => ({
-  type: STOP_SONG,
-  play: false,
-  stop: true,
-})
+
 
 //initial state of module
 const initialState = {
@@ -69,7 +62,6 @@ const initialState = {
   search_term: '',
   current_song: {},
   play: false,
-  stop: false,
   error: null
 }
 
@@ -116,21 +108,14 @@ export default function reducer (state = initialState, action) {
       return {
         ...state,
         play: action.play,
-        stop: action.stop,
         current_song : action.current_song
       };
     case PAUSE_SONG:
       return {
         ...state,
         play: action.play,
-        stop: action.stop,
+        //여기 고쳐보기
         current_song : action.current_song
-      };
-    case STOP_SONG:
-      return {
-        ...state,
-        play: action.play,
-        stop: action.stop
       };
     default:
       return state;

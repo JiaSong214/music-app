@@ -1,7 +1,6 @@
-
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
-import { playSong, pauseSong, stopSong } from '../store/modules/songs';
+import { playSong, pauseSong } from '../store/modules/songs';
 
 import playBtn from '../assets/play-btn.png';
 import pauseBtn from '../assets/pause-btn.png';
@@ -12,14 +11,13 @@ import volumeIcon from '../assets/volume.png';
 import '../styles/playBar.scss';
 
 
-function PlayBar() {
+const PlayBar = () => {
   const dispatch = useDispatch();
   const audioRef = useRef(null);
   const audioState = useSelector(state => state.songs, shallowEqual);
   const currentSong = useSelector(state => state.songs.current_song, shallowEqual);
   const currentSongList = useSelector(state => state.songs.data, shallowEqual);
   const [ playingTime, setPlayingTime ] = useState(0);
-
 
 
   //audio control
@@ -53,44 +51,49 @@ function PlayBar() {
   }
 
 
-  const clickNextSong = () => {
-    if(!currentSong.name) return;
+  const findSongIndex = () => {
+    let refinedSongList = currentSongList.tracks ? currentSongList.tracks : currentSongList;
+    let currentSongIndex;
 
-    let dataFormat = currentSongList.tracks ? currentSongList.tracks : currentSongList;
-    let indexNum;
+    //if there is only one song in the list, return
+    if(refinedSongList.items.length === 1) return;
 
-    dataFormat.items.forEach((item, index) => {
+    //find a current playing song index in the list
+    refinedSongList.items.forEach((item, index) => {
+      //first api data type check
       if(item.name !== undefined){
-        if(item.name === currentSong.name) indexNum = index;
+        if(item.name === currentSong.name && item.artists[0].name === currentSong.artists[0].name) currentSongIndex = index;
       }else if(item.track !== undefined){
-        if(item.track.name === currentSong.name) indexNum = index;
+        //second api data type check
+        if(item.track.name === currentSong.name && item.track.artists[0].name === currentSong.artists[0].name) currentSongIndex = index;
       }
     });
 
-    const nextSong = dataFormat.items[indexNum + 1];
-    console.log(nextSong)
-    dispatch(stopSong());
-    dispatch(playSong(nextSong.track? nextSong.track : nextSong));
+    return { refinedSongList, currentSongIndex} ;
+  }
+
+
+  const clickNextSong = () => {
+    //if there isn't currentSong, return
+    if(!currentSong.name) return;
+
+    const { refinedSongList, currentSongIndex } = findSongIndex();
+    const nextSong = refinedSongList.items[currentSongIndex + 1];
+
+    audioState.play ? 
+      dispatch(playSong(nextSong.track ? nextSong.track : nextSong)) : dispatch(pauseSong(nextSong.track ? nextSong.track : nextSong));
   }
 
 
   const clickReverseSong = () => {
+    //if there isn't currentSong, return
     if(!currentSong.name) return;
 
-    let dataFormat = currentSongList.tracks ? currentSongList.tracks : currentSongList;
-    let indexNum;
+    const { refinedSongList, currentSongIndex } = findSongIndex();
+    const reverseSong = refinedSongList.items[currentSongIndex - 1];
 
-    dataFormat.items.forEach((item, index) => {
-      if(item.name !== undefined){
-        if(item.name === currentSong.name) indexNum = index;
-      }else if(item.track !== undefined){
-        if(item.track.name === currentSong.name) indexNum = index;
-      }
-    });
-
-    const reverseSong = dataFormat.items[indexNum - 1];
-    dispatch(stopSong());
-    dispatch(playSong(reverseSong.track));
+    audioState.play ? 
+      dispatch(playSong(reverseSong.track ? reverseSong.track : reverseSong)) : dispatch(pauseSong(reverseSong.track ? reverseSong.track : reverseSong));
   }
 
 
@@ -98,61 +101,35 @@ function PlayBar() {
     audioRef.current.volume = e.target.value;
   }
 
-  //useEffect가 일어날때마다 중복실행되는 문제점
-  const countTime = () => {
-    console.log(`count time: ${playingTime}`);
 
-    let intervalId;
-
-    if(playingTime >= 30) {
-      clearInterval(intervalId);
-      setPlayingTime(0);
-      stopSong();
-
-    }else{
-      intervalId = setInterval(() => {
-        setPlayingTime(playingTime + 1);
-      }, 1000);
-    }
-  }
-
-  // song processing bar
+  //song processing bar
   useEffect(() => {
-    console.log(`play: ${audioState.play}, stop: ${audioState.stop}`)
-    console.log(`count time: ${playingTime}`);
     let intervalId;
 
-    let sec = 0;
-
-    if(audioState.stop) {
-      setPlayingTime(0);
-      sec = 0;
-
-    }else{
-      if(audioState.play){
-
-
-        if(sec >= 30) {
-          clearInterval(intervalId);
-          setPlayingTime(0);
-          stopSong();
-    
-        }else{
-          intervalId = setInterval(() => {
-            setPlayingTime(playingTime + 1);
-            sec = sec + 1;
-            console.log(sec)
-  
-          }, 1000);
-        }
+    //if audio state is play, 
+    if(audioState.play){
+      if(playingTime >= 30) {
+        //and playing time is over than 30sec, stop the song
+        setPlayingTime(0);
+        dispatch(pauseSong(currentSong));
+      }else{
+        //if not, keep counting the playing time
+        intervalId = setInterval(() => {
+          setPlayingTime(playingTime + 1);
+        }, 1000);
       }
     }
 
+    //clean
     return () => clearInterval(intervalId);
+  }, [audioState.play, playingTime, dispatch]);
 
-  }, [audioState.stop, audioState.play])
+
+  //if current song is changed, reset playing time
+  useEffect(() => {
+    setPlayingTime(0);
+  }, [currentSong]);
   
-
 
   return (
     <aside className="playBar">
@@ -181,7 +158,9 @@ function PlayBar() {
         <div className='currentProgress'>
           0:{playingTime < 10 ? '0'+playingTime : playingTime}
         </div>
-        <div className='progressBar'></div>
+        <div className='progressBar'>
+          <div className='progressBar__progress' style={{width: playingTime / 30 * 100 +'%'}} />
+        </div>
         <div className='expiredProgress'>
           0:{ -(playingTime - 30) < 10 ? '0'+- (playingTime - 30) : -(playingTime - 30) }
         </div>

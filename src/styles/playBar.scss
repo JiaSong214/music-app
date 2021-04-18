@@ -99,12 +99,23 @@
       height: 3px;
       border-radius: 10px;
       background: #404040;
+      position: relative;
+
+      .progressBar__progress {
+        width: 0%;
+        height: 100%;
+        background: white;
+        position: absolute;
+        top: 0;
+        left: 0;
+        // transition: 1.5s;
+      }
     }
   }
 
   .volumeControl {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     position: absolute;
     right: 15px;

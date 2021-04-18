@@ -3,7 +3,7 @@ import '../styles/modal.scss';
 const Modal = (state) => {
 
   const closeModal = (e) => {
-    e.target.closest('.modal').style.display = 'none';
+    e.target.closest('.modal').classList.remove('active');
   }
 
   return (

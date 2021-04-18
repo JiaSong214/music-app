@@ -15,7 +15,7 @@ function App() {
   const accessToken = useSelector(state => state.token.token, shallowEqual);
   const [ modal, setModal ] = useState(false)
 
-
+  //To extract parameters value from address
   const getParamsValue = () => {
     //destructe url to check if there is access_token
     let hashParams = {};
@@ -36,6 +36,7 @@ function App() {
   useEffect(() => {
     //first, check if there is token or not.
     const checkAccessToken = () => {
+      //if there is no token, authorize user
       if(accessToken === ''){
         checkAuth();
       }
@@ -43,13 +44,14 @@ function App() {
 
     //second, if there is no token, take user to authorize page.
     const checkAuth = async () => {
+      console.log(getParamsValue())
       //find a code from location parameters
       const code = getParamsValue().code;
       //get access token by exchanging with the code
       const access_token = await fetchAccessToken(code);
   
       if(access_token){
-        //if there is access_token, set it in reducer
+        //if you get access_token, set it in reducer
         dispatch(setToken(access_token));
       }else{
         //if there is no access_token, require authorize.
@@ -61,13 +63,13 @@ function App() {
   },[accessToken, dispatch]);
 
 
-  //modal active
+  //modal active 2 sec after rendering
   useEffect(() => {
     setTimeout(() => {
       setModal(true);
     }, 2000)
   },[])
-  
+
 
   if(!accessToken) return null;
   return (
