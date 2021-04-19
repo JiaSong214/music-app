@@ -59,6 +59,11 @@
         display: block;
         width: 18px;
         height: 18px;
+        opacity: 0.7;
+
+        &:hover {
+          opacity: 1;
+        }
       }
     }
   }

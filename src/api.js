@@ -236,3 +236,23 @@ export const fetchPlaylistTracks = (access_token, playlist_id) => (dispatch) => 
   .then(data => dispatch(succeedSongsFetch(data)))
   .catch(err => dispatch(failSongsFetch(err)))
 }
+
+
+export const putLikedSong = (access_token, song_id) => {
+  fetch(`https://api.spotify.com/v1/me/tracks?ids=${song_id}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': 'Bearer ' + access_token
+    }
+  })
+}
+
+
+export const putMyAlbum = (access_token, album_id) => {
+  fetch(`https://api.spotify.com/v1/me/albums?ids=${album_id}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': 'Bearer ' + access_token
+    }
+  })
+}

@@ -5,10 +5,12 @@ import playBtn from '../assets/play-btn.png';
 import pauseBtn from '../assets/pause-btn.png';
 import { pauseSong, playSong  } from '../store/modules/songs';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { putLikedSong } from '../api';
 
 
 const SongList = (data) => {
   const dispatch = useDispatch();
+  const access_token = useSelector(state => state.token.access_token, shallowEqual);
   const audioPlay = useSelector(state => state.songs.play, shallowEqual);
   const currentSong = useSelector(state => state.songs.current_song, shallowEqual);
 
@@ -29,6 +31,12 @@ const SongList = (data) => {
       //if you click diffrent song's play button,
       dispatch(playSong(refinedData));
     }
+  }
+
+  const clickLikeSong = (event, song) => {
+    putLikedSong(access_token, song.id ? song.id : song.track.id);
+
+    event.target.src=likeFullIcon
   }
 
 
@@ -72,7 +80,11 @@ const SongList = (data) => {
               />
             </td>
             <td className='songTable__likeBtn'>
-               <img src={data.type === 'likedSongs' ? likeFullIcon :likeEmptyIcon} alt='song like button' />
+               <img 
+                src={data.type === 'likedSongs' ? likeFullIcon :likeEmptyIcon} 
+                alt='song like button' 
+                onClick={(event) => clickLikeSong(event, item)}
+              />
             </td>
             <td className='songTable__songName'>{refinedData.name}</td>
             <td>{refinedData.artists[0].name}</td>

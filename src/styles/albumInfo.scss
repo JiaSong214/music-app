@@ -40,5 +40,20 @@
         color: white;
       }
     }
+
+    .albumInfo__btnBox {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .likeBtn img {
+        display: block;
+        width: 25px;
+        height: 25px;
+        margin-left: 20px;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+    }
   }
 }
