@@ -26,8 +26,6 @@ export const fetchAccessToken = async (code) => {
     });
 
     const data = await response.json();
-    console.log(data)
-
     const access_token = data.access_token;
     const refresh_token = data.refresh_token;
 

@@ -69,13 +69,15 @@ const PlayBar = () => {
       }
     });
 
-    return { refinedSongList, currentSongIndex} ;
+    return { refinedSongList, currentSongIndex } ;
   }
 
 
   const clickNextSong = () => {
     //if there isn't currentSong, return
     if(!currentSong.name) return;
+    //if there isn't more than one song in current song list, return
+    if(findSongIndex() === undefined) return;
 
     const { refinedSongList, currentSongIndex } = findSongIndex();
     const nextSong = refinedSongList.items[currentSongIndex + 1];
@@ -88,6 +90,8 @@ const PlayBar = () => {
   const clickReverseSong = () => {
     //if there isn't currentSong, return
     if(!currentSong.name) return;
+    //if there isn't more than one song in current song list, return
+    if(findSongIndex() === undefined) return;
 
     const { refinedSongList, currentSongIndex } = findSongIndex();
     const reverseSong = refinedSongList.items[currentSongIndex - 1];
