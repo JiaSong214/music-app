@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/music-app/static/css/main.7c0c7f82.chunk.css",
-    "main.js": "/music-app/static/js/main.146e5125.chunk.js",
-    "main.js.map": "/music-app/static/js/main.146e5125.chunk.js.map",
+    "main.css": "/music-app/static/css/main.93e964fd.chunk.css",
+    "main.js": "/music-app/static/js/main.d13621b4.chunk.js",
+    "main.js.map": "/music-app/static/js/main.d13621b4.chunk.js.map",
     "runtime-main.js": "/music-app/static/js/runtime-main.ae9ba98e.js",
     "runtime-main.js.map": "/music-app/static/js/runtime-main.ae9ba98e.js.map",
     "static/js/2.938462c3.chunk.js": "/music-app/static/js/2.938462c3.chunk.js",
     "static/js/2.938462c3.chunk.js.map": "/music-app/static/js/2.938462c3.chunk.js.map",
     "index.html": "/music-app/index.html",
-    "static/css/main.7c0c7f82.chunk.css.map": "/music-app/static/css/main.7c0c7f82.chunk.css.map",
+    "static/css/main.93e964fd.chunk.css.map": "/music-app/static/css/main.93e964fd.chunk.css.map",
     "static/js/2.938462c3.chunk.js.LICENSE.txt": "/music-app/static/js/2.938462c3.chunk.js.LICENSE.txt",
     "static/media/last-song-btn.a493e03f.png": "/music-app/static/media/last-song-btn.a493e03f.png",
     "static/media/like-empty.e7ec3ad0.png": "/music-app/static/media/like-empty.e7ec3ad0.png",
@@ -21,7 +21,7 @@
   "entrypoints": [
     "static/js/runtime-main.ae9ba98e.js",
     "static/js/2.938462c3.chunk.js",
-    "static/css/main.7c0c7f82.chunk.css",
-    "static/js/main.146e5125.chunk.js"
+    "static/css/main.93e964fd.chunk.css",
+    "static/js/main.d13621b4.chunk.js"
   ]
 }
