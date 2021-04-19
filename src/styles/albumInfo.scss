@@ -1,3 +1,5 @@
+@import "./global.scss";
+
 .albumInfo {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -17,7 +19,7 @@
 
     h1 {
       margin-bottom: 5px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: white;
       font-weight: 300;
       letter-spacing: 0.2rem;

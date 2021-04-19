@@ -34,8 +34,8 @@ const AlbumList = (data) => {
           alt='album cover' />
 
 
-          {data.data.type !== 'featured' && data.data.type !== 'categories' ? 
-            <div>
+          {/* {data.data.type !== 'featured' && data.data.type !== 'categories' ? 
+            <div className='albumList__titleBox'>
               <h2 className='albumList__title'>
                 {item.name ? item.name : item.album ? item.album.name : ''}
               </h2>
@@ -43,7 +43,7 @@ const AlbumList = (data) => {
                 {item.artists ? item.artists[0].name: item.album ? item.album.artists[0].name : ''}
               </h3>
             </div>
-          : ''}
+          : ''} */}
 
           {data.data.type === 'categories' ?
             <h2 className='albumList__title--categories'>

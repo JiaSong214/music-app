@@ -1,15 +1,13 @@
+@import "./global.scss";
+
 .albumList {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 60px 20px;
 
-  li {
+  .albumList__item {
     position: relative;
     cursor: pointer;
-
-    &:hover .albumList__img {
-      filter: brightness(0.5);
-    }
 
     .albumList__img {
       display: block;
@@ -18,16 +16,8 @@
       position: relative;
     }
 
-    &:hover .category_title {
-      text-decoration: underline;
-    }
-
-    .category_title {
-      font-size: 1rem;
-      position: absolute;
-      top: 70%;
-      left: 50%;
-      transform: translateX(-50%);
+    &:hover .albumList__img {
+      filter: brightness(0.5);
     }
 
     .albumList__title {

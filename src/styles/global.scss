@@ -30,12 +30,9 @@ a {
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
-body {
+html {
   background: #181818;
-
-  font-family: "Roboto", sans-serif;
-  font-size: 16px;
+  font: 16px "Roboto", sans-serif !important;
   color: white;
-
   position: relative;
 }
