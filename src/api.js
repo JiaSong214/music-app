@@ -12,7 +12,7 @@ import { pendingSongsFetch, succeedSongsFetch, failSongsFetch,
 
 export const fetchAccessToken = async (code) => {
   // token request address
-  const requestApi = `https://accounts.spotify.com/api/token?code=${code}&grant_type=authorization_code&redirect_uri=http://localhost:3000/callback/`;
+  const requestApi = `https://accounts.spotify.com/api/token?code=${code}&grant_type=authorization_code&redirect_uri=http://jiasong214.github.io/music-app/`;
 
   //get a token from Api
   try{
