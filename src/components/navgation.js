@@ -8,7 +8,7 @@ import '../styles/navgation.scss';
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const accessToken = useSelector(state => state.token.token, shallowEqual);
+  const accessToken = useSelector(state => state.token.access_token, shallowEqual);
   const playlists = useSelector(state => state.playlists.data, shallowEqual);
 
   useEffect(() => {

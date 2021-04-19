@@ -67,7 +67,6 @@ const initialState = {
 
 //make a reducer and export
 export default function reducer (state = initialState, action) {
-  console.log(action)
   switch(action.type) {
     case PENDING_SONGS_FETCH:
       return {

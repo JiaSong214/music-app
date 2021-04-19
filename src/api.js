@@ -1,70 +1,63 @@
 import { pendingUserFetch, succeedUserFetch, failUserFetch } from './store/modules/user';
-
-import { pendingAlbumsFetch, succeedAlbumsFetch, failAlbumsFetch } from './store/modules/albums';
-
-import { pendingSongsFetch, succeedSongsFetch, failSongsFetch,
-  pendingSearchSongsFetch, succeedSearchSongsFetch, failSearchSongsFetch } from './store/modules/songs'
-
-import { pendingPlaylistsFetch, succeedPlaylistsFetch, failPlaylistsFetch } from './store/modules/playlists'
-
 import { pendingNewReleasesFetch, succeedNewReleasesFetch, failNewReleasesFetch,
   pendingCategoriesFetch, succeedCategoriesFetch, failCategoriesFetch,
-  pendingFeaturedFetch, succeedFeaturedFetch, failFeaturedFetch } from './store/modules/browse'
-
-
-const client_id = `7da971157300402095a7852508e36dce`;
-const client_secret = `9c0e75f27b084a718f560a6e7ec7ef19`;
-const redirect_uri=`http://localhost:3000/callback/`;
-// const scope = `playlist-read-private%20playlist-read-collaborative%20playlist-modify-public%20user-read-recently-played%20playlist-modify-private%20ugc-image-upload%20user-follow-modify%20user-follow-read%20user-library-read%20user-library-modify%20user-read-private%20user-read-email%20user-top-read%20user-read-playback-state`;
+  pendingFeaturedFetch, succeedFeaturedFetch, failFeaturedFetch } from './store/modules/browse';
+import { pendingAlbumsFetch, succeedAlbumsFetch, failAlbumsFetch } from './store/modules/albums';
+import { pendingPlaylistsFetch, succeedPlaylistsFetch, failPlaylistsFetch } from './store/modules/playlists';
+import { pendingSongsFetch, succeedSongsFetch, failSongsFetch,
+  pendingSearchSongsFetch, succeedSearchSongsFetch, failSearchSongsFetch } from './store/modules/songs';
+// import { setAccessToken } from './store/modules/token';
 
 
 
 export const fetchAccessToken = async (code) => {
   // token request address
-  const requestApi = `https://accounts.spotify.com/api/token?code=${code}&grant_type=authorization_code&redirect_uri=${redirect_uri}`;
+  const requestApi = `https://accounts.spotify.com/api/token?code=${code}&grant_type=authorization_code&redirect_uri=http://localhost:3000/callback/`;
 
   //get a token from Api
   try{
     const response = await fetch(requestApi, {
       method: 'POST',
       headers: {
-        'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret),
+        'Authorization': 'Basic ' + btoa(`7da971157300402095a7852508e36dce:9c0e75f27b084a718f560a6e7ec7ef19`),
         'Content-Type': 'application/x-www-form-urlencoded',
         "Accept": "application/json",
       }
     });
 
     const data = await response.json();
+    console.log(data)
+
     const access_token = data.access_token;
+    const refresh_token = data.refresh_token;
 
-    return access_token;
-
+    return { access_token, refresh_token };
   }catch{
     console.log('access token err');
   }
 }
 
+// //fix it
+// export const fetchRefreshedAccessToken = (refresh_token) => async (dispatch) => {
+//   const requestApi = `https://accounts.spotify.com/api/token?grant_type=refresh_token&refresh_token=${refresh_token}`;
 
-// 이게 왜 필요한건지??
-export const fetchRefreshedAccessToken = async (code) => {
-  const requestApi = `https://accounts.spotify.com/api/token?grant_type=refresh_token&refresh_token=${code}`;
+//   try{
+//     const response = await fetch(requestApi, {
+//       method: 'POST',
+//       headers: {
+//         'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret),
+//         'Content-Type': 'application/x-www-form-urlencoded',
+//       }
+//     });
 
-  try{
-    const response = await fetch(requestApi, {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret),
-        'Content-Type': 'application/x-www-form-urlencoded',
-      }
-    });
+//     const data = response.json();
+//     const access_token = data.access_token;
 
-    const data = response.json();
+//     dispatch(setAccessToken(access_token));
+//   }catch{
 
-    console.log(data);
-  }catch{
-
-  }
-}
+//   }
+// }
 
 
 export const fetchUserData = (access_token) => (dispatch) => {

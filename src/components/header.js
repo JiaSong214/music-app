@@ -6,7 +6,7 @@ import '../styles/header.scss';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const accessToken = useSelector(state => state.token.token, shallowEqual);
+  const accessToken = useSelector(state => state.token.access_token, shallowEqual);
   const user = useSelector(state => state.user.data, shallowEqual);
 
 

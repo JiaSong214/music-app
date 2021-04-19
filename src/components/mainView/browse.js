@@ -6,7 +6,7 @@ import '../../styles/browse.scss';
 
 const Browse = () => {
   const dispatch = useDispatch();
-  const accessToken = useSelector(state => state.token.token, shallowEqual);
+  const accessToken = useSelector(state => state.token.access_token, shallowEqual);
   const data = useSelector(state => state.browse.data, shallowEqual);
 
 

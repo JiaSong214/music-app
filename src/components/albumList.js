@@ -6,7 +6,7 @@ import '../styles/albumList.scss';
 
 const AlbumList = (data) => {
   const dispatch = useDispatch();
-  const accessToken = useSelector(state => state.token.token, shallowEqual);
+  const accessToken = useSelector(state => state.token.access_token, shallowEqual);
 
   const handleAlbumClick = (item) => {
     if(data.data.type === 'categories') return;
