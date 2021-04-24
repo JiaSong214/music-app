@@ -9,7 +9,6 @@ import { pendingSongsFetch, succeedSongsFetch, failSongsFetch,
 // import { setAccessToken } from './store/modules/token';
 
 
-
 export const fetchAccessToken = async (code) => {
   // token request address
   const requestApi = `https://accounts.spotify.com/api/token?code=${code}&grant_type=authorization_code&redirect_uri=http://jiasong214.github.io/music-app/`;

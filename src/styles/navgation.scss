@@ -3,9 +3,10 @@
 nav {
   width: 190px;
   height: calc(100vh - 80px);
-  padding: 50px 20px !important;
+  padding: 50px 20px 5px !important;
   background: #121212;
   color: #b3b3b3;
+  overflow: scroll;
   position: fixed;
   top: 0;
   left: 0;
@@ -28,6 +29,9 @@ nav {
     font-weight: 400;
     letter-spacing: 0.1rem;
     line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     cursor: pointer;
   }
 }
