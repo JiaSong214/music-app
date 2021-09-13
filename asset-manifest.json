@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/music-app/static/css/main.3022725f.chunk.css",
-    "main.js": "/music-app/static/js/main.d13621b4.chunk.js",
-    "main.js.map": "/music-app/static/js/main.d13621b4.chunk.js.map",
-    "runtime-main.js": "/music-app/static/js/runtime-main.ae9ba98e.js",
-    "runtime-main.js.map": "/music-app/static/js/runtime-main.ae9ba98e.js.map",
-    "static/js/2.938462c3.chunk.js": "/music-app/static/js/2.938462c3.chunk.js",
-    "static/js/2.938462c3.chunk.js.map": "/music-app/static/js/2.938462c3.chunk.js.map",
-    "index.html": "/music-app/index.html",
-    "static/css/main.3022725f.chunk.css.map": "/music-app/static/css/main.3022725f.chunk.css.map",
-    "static/js/2.938462c3.chunk.js.LICENSE.txt": "/music-app/static/js/2.938462c3.chunk.js.LICENSE.txt",
-    "static/media/last-song-btn.a493e03f.png": "/music-app/static/media/last-song-btn.a493e03f.png",
-    "static/media/like-empty.e7ec3ad0.png": "/music-app/static/media/like-empty.e7ec3ad0.png",
-    "static/media/like-full.1f20b9a6.png": "/music-app/static/media/like-full.1f20b9a6.png",
-    "static/media/next-song-btn.269fdd55.png": "/music-app/static/media/next-song-btn.269fdd55.png",
-    "static/media/pause-btn.879dbdab.png": "/music-app/static/media/pause-btn.879dbdab.png",
-    "static/media/play-btn.16d1fa01.png": "/music-app/static/media/play-btn.16d1fa01.png",
-    "static/media/volume.fa80322f.png": "/music-app/static/media/volume.fa80322f.png"
+    "main.css": "/spotify-clone/static/css/main.d44250f5.chunk.css",
+    "main.js": "/spotify-clone/static/js/main.48a63ff4.chunk.js",
+    "main.js.map": "/spotify-clone/static/js/main.48a63ff4.chunk.js.map",
+    "runtime-main.js": "/spotify-clone/static/js/runtime-main.f21865d9.js",
+    "runtime-main.js.map": "/spotify-clone/static/js/runtime-main.f21865d9.js.map",
+    "static/js/2.f962c81c.chunk.js": "/spotify-clone/static/js/2.f962c81c.chunk.js",
+    "static/js/2.f962c81c.chunk.js.map": "/spotify-clone/static/js/2.f962c81c.chunk.js.map",
+    "index.html": "/spotify-clone/index.html",
+    "static/css/main.d44250f5.chunk.css.map": "/spotify-clone/static/css/main.d44250f5.chunk.css.map",
+    "static/js/2.f962c81c.chunk.js.LICENSE.txt": "/spotify-clone/static/js/2.f962c81c.chunk.js.LICENSE.txt",
+    "static/media/last-song-btn.a493e03f.png": "/spotify-clone/static/media/last-song-btn.a493e03f.png",
+    "static/media/like-empty.e7ec3ad0.png": "/spotify-clone/static/media/like-empty.e7ec3ad0.png",
+    "static/media/like-full.1f20b9a6.png": "/spotify-clone/static/media/like-full.1f20b9a6.png",
+    "static/media/next-song-btn.269fdd55.png": "/spotify-clone/static/media/next-song-btn.269fdd55.png",
+    "static/media/pause-btn.879dbdab.png": "/spotify-clone/static/media/pause-btn.879dbdab.png",
+    "static/media/play-btn.16d1fa01.png": "/spotify-clone/static/media/play-btn.16d1fa01.png",
+    "static/media/volume.fa80322f.png": "/spotify-clone/static/media/volume.fa80322f.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.ae9ba98e.js",
-    "static/js/2.938462c3.chunk.js",
-    "static/css/main.3022725f.chunk.css",
-    "static/js/main.d13621b4.chunk.js"
+    "static/js/runtime-main.f21865d9.js",
+    "static/js/2.f962c81c.chunk.js",
+    "static/css/main.d44250f5.chunk.css",
+    "static/js/main.48a63ff4.chunk.js"
   ]
 }
