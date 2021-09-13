@@ -13,7 +13,7 @@ Music App build by React. Using Spotify API.
 ## Tech/framework used
 
 - React Hooks
-- Redux
+- Redux, thunk
 - Sass
 
 ## Features

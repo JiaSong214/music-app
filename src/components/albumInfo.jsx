@@ -1,34 +1,42 @@
-import '../styles/albumInfo.scss';
-import PlayButton from './playButton';
+import { shallowEqual, useSelector } from 'react-redux';
+import PlayButton from './playButton.jsx';
 import likeEmptyIcon from '../assets/like-empty.png';
 import likeFullIcon from '../assets/like-full.png';
 import { putMyAlbum } from '../api';
-import { shallowEqual, useSelector } from 'react-redux';
+import '../styles/albumInfo.scss';
 
-const AlbumInfo = (data) => {
+const AlbumInfo = ({data}) => {
   const accessToken = useSelector(state => state.token.access_token, shallowEqual);
 
   const clickLikeBtn = (event, data) => {
-    putMyAlbum(accessToken, data.data.id);
+    putMyAlbum(accessToken, data.id);
     event.target.src = likeFullIcon;
   }
 
   return (
     <div className='albumInfo'>
-      <img src={data.data.images ? data.data.images[0].url : data.data.icons[0].url} alt='album cover' />
+      <img 
+        src={data.images[0] ? data.images[0]?.url : data.icons[0].url || ""} 
+        alt='album cover' 
+      />
       <div className='albumInfo__innerbox'>
         <h1>ALBUM</h1>
-        <h2>{data.data.name}</h2>
+        <h2>{data.name}</h2>
         <p>
-          By <span>{data.data.artists ? data.data.artists[0].name : data.data.owner ? data.data.owner.display_name : ''}</span>, {data.data.total_tracks ? data.data.total_tracks : data.data.tracks ? data.data.tracks.total : ''} song
+          By &#160;
+          <span>
+            {data.owner?.display_name || data.artists[0]?.name || ''}
+          </span>
+          , {data.total_tracks || data.tracks?.total || ''} song
         </p>
         <div className='albumInfo__btnBox'>
-          <PlayButton />
+          <PlayButton playlist={data.tracks.items} />
           <div className='likeBtn'>
             <img 
               src={likeEmptyIcon} 
               alt='like button'
-              onClick={(event) => clickLikeBtn(event, data)} />
+              onClick={(event) => clickLikeBtn(event, data)} 
+            />
           </div>
         </div>
       </div>

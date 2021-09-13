@@ -19,11 +19,12 @@ nav {
     letter-spacing: 0.2rem;
   }
 
-  ul {
+  div {
     margin-bottom: 30px;
   }
 
-  li {
+  a {
+    display: block;
     padding: 5px 0;
     font-size: 0.9rem;
     font-weight: 400;
