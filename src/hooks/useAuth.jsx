@@ -5,8 +5,8 @@ import { setAccessToken } from '../store/modules/token';
 const useAuth = () => {
   const dispatch = useDispatch();
 
-  const redirect_uri = "http://jiasong214.github.io/spotify-clone/";
-  // const redirect_uri = "http://localhost:3000";
+  const redirect_uri = "http://jiasong214.github.io/spotify-clone/callback";
+  // const redirect_uri = "http://localhost:3000/callback";
   const client_id = "7da971157300402095a7852508e36dce";
   const client_secret = "9c0e75f27b084a718f560a6e7ec7ef19";
 

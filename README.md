@@ -4,7 +4,7 @@ Music App build by React. Using Spotify API.
 
 <!-- I made this app to practice React Hooks, Redux, and using Api. -->
 
-**[click here for demo](https://jiasong214.github.io/music-app/)**
+**[click here for demo](https://jiasong214.github.io/spotify-clone/)**
 
 ![Screenshot1](https://github.com/JiaSong214/music-app/blob/main/screenshot1.gif)
 ![Screenshot2](https://github.com/JiaSong214/music-app/blob/main/screenshot2.gif)
