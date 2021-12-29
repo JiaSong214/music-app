@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/spotify-clone/static/css/main.d44250f5.chunk.css",
-    "main.js": "/spotify-clone/static/js/main.70e204c5.chunk.js",
-    "main.js.map": "/spotify-clone/static/js/main.70e204c5.chunk.js.map",
-    "runtime-main.js": "/spotify-clone/static/js/runtime-main.f21865d9.js",
-    "runtime-main.js.map": "/spotify-clone/static/js/runtime-main.f21865d9.js.map",
-    "static/js/2.5a743e63.chunk.js": "/spotify-clone/static/js/2.5a743e63.chunk.js",
-    "static/js/2.5a743e63.chunk.js.map": "/spotify-clone/static/js/2.5a743e63.chunk.js.map",
+    "main.css": "/spotify-clone/static/css/main.9246f164.chunk.css",
+    "main.js": "/spotify-clone/static/js/main.68185915.chunk.js",
+    "main.js.map": "/spotify-clone/static/js/main.68185915.chunk.js.map",
+    "runtime-main.js": "/spotify-clone/static/js/runtime-main.923a90dd.js",
+    "runtime-main.js.map": "/spotify-clone/static/js/runtime-main.923a90dd.js.map",
+    "static/js/2.1db7dd17.chunk.js": "/spotify-clone/static/js/2.1db7dd17.chunk.js",
+    "static/js/2.1db7dd17.chunk.js.map": "/spotify-clone/static/js/2.1db7dd17.chunk.js.map",
     "index.html": "/spotify-clone/index.html",
-    "static/css/main.d44250f5.chunk.css.map": "/spotify-clone/static/css/main.d44250f5.chunk.css.map",
-    "static/js/2.5a743e63.chunk.js.LICENSE.txt": "/spotify-clone/static/js/2.5a743e63.chunk.js.LICENSE.txt",
+    "static/css/main.9246f164.chunk.css.map": "/spotify-clone/static/css/main.9246f164.chunk.css.map",
+    "static/js/2.1db7dd17.chunk.js.LICENSE.txt": "/spotify-clone/static/js/2.1db7dd17.chunk.js.LICENSE.txt",
     "static/media/last-song-btn.a493e03f.png": "/spotify-clone/static/media/last-song-btn.a493e03f.png",
     "static/media/like-empty.e7ec3ad0.png": "/spotify-clone/static/media/like-empty.e7ec3ad0.png",
     "static/media/like-full.1f20b9a6.png": "/spotify-clone/static/media/like-full.1f20b9a6.png",
@@ -19,9 +19,9 @@
     "static/media/volume.fa80322f.png": "/spotify-clone/static/media/volume.fa80322f.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.f21865d9.js",
-    "static/js/2.5a743e63.chunk.js",
-    "static/css/main.d44250f5.chunk.css",
-    "static/js/main.70e204c5.chunk.js"
+    "static/js/runtime-main.923a90dd.js",
+    "static/js/2.1db7dd17.chunk.js",
+    "static/css/main.9246f164.chunk.css",
+    "static/js/main.68185915.chunk.js"
   ]
 }
